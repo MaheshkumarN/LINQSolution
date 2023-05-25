@@ -2,23 +2,15 @@
 {
   public class Employee
   {
-    int _age;
-    string _empName;
+    public int EmpNo { get; set; }
+    public string EmpName { get; set; }
+    public decimal Salary { get; set; }
+    public int Age { get; set; }
 
-    public int Age
-    { 
-      get { return _age; }
-      set 
-      {
-        if (value < 1) throw new Exception("Age cannot be less than 1");
-        _age = value; 
-      }
-    }
 
-    public string EmpName
+    public override string ToString()
     {
-      get { return _empName; }
-      set { _empName = value; }
+      return $"EmpNo: {EmpNo}, EmpName: {EmpName}, Salary: {Salary}, Age: {Age}";
     }
 
   }

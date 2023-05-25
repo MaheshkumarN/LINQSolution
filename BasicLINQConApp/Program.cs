@@ -8,7 +8,14 @@ using BasicLINQConApp.Models.Entities;
 #endregion
 
 
-Employee emp = new Employee();
-emp.Age = 10;
-emp.EmpName = "Phantom";
+#region old Initialization and Properties
+//Employee emp = new Employee();
+//emp.Age = 10;
+//emp.EmpName = "Phantom";
+//WriteLine($"{emp}"); 
+#endregion
+
+
+Employee emp = new Employee { EmpNo = 10, EmpName = "Tintin", Age = 10, Salary = 2000.21m };
+
 WriteLine($"{emp}");
