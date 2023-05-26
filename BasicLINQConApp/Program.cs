@@ -93,6 +93,34 @@ List<Employee> empList = new List<Employee>()
 //empList.Filter(delegate(Employee e) { return e.EmpName.StartsWith("J"); }).Print("Get By Name StartsWith 'J'");
 #endregion
 
+#region With Lambda delegate replace with '=>'
+//empList.Filter(delegate(Employee e) { return e.Salary > 4000; }).Print("Get By Sal > 4000");
+//empList.Filter((Employee e) => { return e.Salary > 4000; }).Print("Get By Sal > 4000");
+
+//empList.Filter(delegate(Employee e) { return e.Age > 32; }).Print("Emp's with Age > 32");
+//empList.Filter((Employee e) => { return e.Age > 32; }).Print("Emp's with Age > 32");
+
+//empList.Filter(delegate(Employee e) { return e.EmpName.StartsWith("J"); }).Print("Get By Name StartsWith 'J'");
+//empList.Filter((Employee e) => { return e.EmpName.StartsWith("J"); }).Print("Get By Name StartsWith 'J'");
+
+
+//IEnumerable<Employee> newEmpList  = empList.Filter((Employee e) => { return e.EmpName.StartsWith("J"); });
+//newEmpList.Print("Get By Name StartsWith 'J'");
+
+
+//empList.Where(e => e.Age > 32).Print("All Emp's with Age > 32");
+//empList.Where(e => e.Age > 32).AsQueryable().Print("All Emp's with Age > 32");
+
+//IEnumerable<Employee> newEmpList = empList.Where(e => e.EmpName.StartsWith("J"));
+//Printer.Print(newEmpList, "All Emp's With EmpName StartingWith 'J'");
+
+// Error as LINQ will return IEnumerable
+//IList<Employee> newEmpList = empList.Where(e => e.EmpName.StartsWith("J"));
+
+//IList<Employee> newEmpList = empList.Where(e => e.EmpName.StartsWith("J")).ToList();
+//Printer.Print(newEmpList, "All Emp's With EmpName StartingWith 'J'");
+#endregion
+
 //Step I
 static bool GetBySal(Employee emp)
 {
