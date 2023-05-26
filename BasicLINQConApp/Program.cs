@@ -121,6 +121,23 @@ List<Employee> empList = new List<Employee>()
 //Printer.Print(newEmpList, "All Emp's With EmpName StartingWith 'J'");
 #endregion
 
+#region With Query Expression
+
+//IEnumerable<Employee> newEmpList  = empList.Filter((Employee e) => { return e.EmpName.StartsWith("J"); });
+IEnumerable<Employee> newEmpList  = from e in empList
+																		where e.EmpName.StartsWith("J")
+																		select new Employee { EmpNo = e.EmpNo, EmpName = e.EmpName, Salary = e.Salary, Age = e.Age };
+Printer.Print(newEmpList, "All Emp's with Name Starting in 'J'");
+
+//empList.Where(e => e.Age > 32).Print("All Emp's with Age > 32");
+IList<Employee> newEmpListList = (from e in empList
+																 where e.Age > 20 && e.Salary > 3000
+																 select new Employee { EmpNo = e.EmpNo, EmpName = e.EmpName, Salary = e.Salary, Age = e.Age }).ToList();
+newEmpListList.Print("With Query Expression, call to ToList()");
+
+#endregion
+
+
 //Step I
 static bool GetBySal(Employee emp)
 {
