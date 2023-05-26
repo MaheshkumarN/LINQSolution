@@ -1,6 +1,7 @@
 ﻿using static System.Console;
 using BasicLINQConApp.Models.Entities;
 using BasicLINQConApp;
+using System.Security.Cryptography;
 
 #region Default
 //// See https://aka.ms/new-console-template for more information
@@ -124,19 +125,35 @@ List<Employee> empList = new List<Employee>()
 #region With Query Expression
 
 //IEnumerable<Employee> newEmpList  = empList.Filter((Employee e) => { return e.EmpName.StartsWith("J"); });
-IEnumerable<Employee> newEmpList  = from e in empList
-																		where e.EmpName.StartsWith("J")
-																		select new Employee { EmpNo = e.EmpNo, EmpName = e.EmpName, Salary = e.Salary, Age = e.Age };
-Printer.Print(newEmpList, "All Emp's with Name Starting in 'J'");
+//IEnumerable<Employee> newEmpList  = from e in empList
+//																		where e.EmpName.StartsWith("J")
+//																		select new Employee { EmpNo = e.EmpNo, EmpName = e.EmpName, Salary = e.Salary, Age = e.Age };
+//Printer.Print(newEmpList, "All Emp's with Name Starting in 'J'");
 
 //empList.Where(e => e.Age > 32).Print("All Emp's with Age > 32");
-IList<Employee> newEmpListList = (from e in empList
-																 where e.Age > 20 && e.Salary > 3000
-																 select new Employee { EmpNo = e.EmpNo, EmpName = e.EmpName, Salary = e.Salary, Age = e.Age }).ToList();
-newEmpListList.Print("With Query Expression, call to ToList()");
+//IList<Employee> newEmpListList = (from e in empList
+//																 where e.Age > 20 && e.Salary > 3000
+//																 select new Employee { EmpNo = e.EmpNo, EmpName = e.EmpName, Salary = e.Salary, Age = e.Age }).ToList();
+//newEmpListList.Print("With Query Expression, call to ToList()");
 
 #endregion
 
+#region var keyword
+//var name = 10;
+//name = "str";
+
+//var newEmpList = (from e in empList
+//									where e.EmpName.StartsWith("T")
+//									select new Employee { EmpNo = e.EmpNo, EmpName = e.EmpName, Salary = e.Salary, Age = e.Age }).ToList();
+
+//newEmpList.Print("Emp with Name startingwith 'T'");
+
+//var newEmpList1 = (from e in empList
+//									where e.EmpName.StartsWith("T")
+//									select new Employee { EmpNo = e.EmpNo, EmpName = e.EmpName, Salary = e.Salary, Age = e.Age }).ToArray();
+//Printer.Print(newEmpList1.GetType().Name, "Type of newEmpList1");
+//newEmpList1.Print("Emp with Name startingwith 'T'");
+#endregion
 
 //Step I
 static bool GetBySal(Employee emp)
