@@ -156,13 +156,39 @@ List<Employee> empList = new List<Employee>()
 #endregion
 
 #region Anonymous Type
-var result = (from e in empList
-							where e.Salary > 4000
-							select new { Name = e.EmpName, Age = e.Age}).ToList();
+//var result = (from e in empList
+//							where e.Salary > 4000
+//							select new { Name = e.EmpName, Age = e.Age}).ToList();
 
-result.Print("Anonymous Type");
+//result.Print("Anonymous Type");
 
-Printer.Print(result.ToString(), "Anonymous Type");
+//Printer.Print(result.ToString(), "Anonymous Type");
+#endregion
+
+#region Action Fire and forget
+//Action<int, int, string> actCalc = new Action<int, int, string>(ActFunc.CalcAction);
+
+//actCalc(10, 2, "/");
+//actCalc(10, 2, "+");
+//actCalc(10, 2, "*");
+//actCalc(10, 2, "-");
+#endregion
+
+#region Func
+//Func<int, string, int> CalcFunc = new Func<int, string, int>(ActFunc.Calc);
+//Printer.Print($"{CalcFunc(10, "+")}", $"CalcFun(10, '+')");
+
+//Func<Employee, bool> FuncByAge = e => e.Age > 28;
+//empList.Where(FuncByAge).Print("Age > 28");
+
+//int ctr = 1;
+//foreach (var item in empList)
+//{
+//	if (FuncByAge(item))
+//	{
+//		WriteLine($"{ctr++} -- {item}");
+//	}
+//}
 #endregion
 
 
