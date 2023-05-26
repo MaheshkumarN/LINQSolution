@@ -2,6 +2,7 @@
 using BasicLINQConApp.Models.Entities;
 using BasicLINQConApp;
 using System.Security.Cryptography;
+using System.Linq.Expressions;
 
 #region Default
 //// See https://aka.ms/new-console-template for more information
@@ -207,3 +208,73 @@ static bool GetByName(Employee emp)
 	return false;
 }
 
+#region Expression
+
+//Step I
+//body
+//parameter/s
+//nodetype (lambda)
+//returnType
+
+//Expression<Func<Employee, bool>> isSeniorExpression = e => e.Age > 35;
+//Expression<Func<Employee, bool>> isMidLevelExpression = e => e.Age >= 20 && e.Age <= 30;
+//Step II Compile the Expression
+//Func<Employee,bool> isSenior = isSeniorExpression.Compile();
+//Func<Employee, bool> isMidLevel = isMidLevelExpression.Compile();
+
+// Step III
+//bool isArchieSr = isSenior(new Employee { EmpNo = 101, EmpName = "Archie", Salary = 2000, Age=3});
+
+//bool isJugheadMidLevel = isSenior(new Employee { EmpNo = 102, EmpName = "Jughead", Salary = 2000, Age = 21 });
+
+//Printer.Print($"{isArchieSr}", "Is Archie Senior");
+//empList.Where(isSenior).Print("Only Senior Emp's");
+
+//Printer.Print($"{isJugheadMidLevel}", "Is Jughead Mid Level");
+//empList.Where(isMidLevel).Print("Only Mid Emp's");
+#endregion
+
+#region Breakup of Expression
+//Printer.Print($"{isMidLevelExpression}", "Expression");
+//Printer.Print($"{isMidLevelExpression.NodeType}", "Expression Type");
+//Printer.PrintHeader("Parameter List");
+//var parameterList = isMidLevelExpression.Parameters;
+//foreach (var item in parameterList)
+//{
+//	WriteLine($"Name: {item.Name}, Type: {item.Type}");
+//}
+//Printer.PrintFooter();
+////var expressionBody = isMidLevelExpression.Body;
+//var expressionBody = isMidLevelExpression.Body as BinaryExpression;
+//Printer.Print($"{expressionBody}", "Body");
+//Printer.Print($"{expressionBody.Left}", "Body Expression Left");
+//Printer.Print($"{expressionBody.NodeType}", "Body Expression Node Type");
+//Printer.Print($"{expressionBody.Right}", "Body Expression Right");
+//Printer.Print($"{isMidLevelExpression.ReturnType}", "MidLevelExpression Return Type");
+
+#endregion
+
+#region Expression Tree
+//Step I ParameterExpression
+ParameterExpression employeeParameter = Expression.Parameter(typeof(Employee), "e");
+
+//Step II MemberExpression
+MemberExpression ageMemberExpression = Expression.Property(employeeParameter, "Age");
+
+//Step III ConstantExpression
+ConstantExpression ageConstant = Expression.Constant(30, typeof(int));
+
+//Step IV BinaryExpression
+BinaryExpression body = Expression.GreaterThanOrEqual(ageMemberExpression, ageConstant);
+
+//Step V ExpressionTree
+var expressionTree = Expression.Lambda<Func<Employee, bool>>(body, employeeParameter);
+
+Printer.Print($"{expressionTree}", "ExpressionTree");
+Printer.Print($"{expressionTree.Body}", "ExpressionTree Body");
+Printer.Print($"{expressionTree.Parameters.Count}", "ExpressionTree Parameters Count");
+Printer.Print($"{expressionTree.Parameters[0]}", "ExpressionTree Parameters[0]");
+
+Func<Employee, bool> isSenior = expressionTree.Compile();
+empList.Where(isSenior).Print("List of Senior Employees");
+#endregion
