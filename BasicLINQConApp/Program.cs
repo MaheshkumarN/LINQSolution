@@ -155,6 +155,17 @@ List<Employee> empList = new List<Employee>()
 //newEmpList1.Print("Emp with Name startingwith 'T'");
 #endregion
 
+#region Anonymous Type
+var result = (from e in empList
+							where e.Salary > 4000
+							select new { Name = e.EmpName, Age = e.Age}).ToList();
+
+result.Print("Anonymous Type");
+
+Printer.Print(result.ToString(), "Anonymous Type");
+#endregion
+
+
 //Step I
 static bool GetBySal(Employee emp)
 {
