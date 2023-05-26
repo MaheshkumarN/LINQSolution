@@ -32,19 +32,49 @@ namespace BasicLINQConApp
       WriteLine($"");
     }
 
-    public static void Print(string message, string headerMessage = null, string pattern = "-", int noOfTimesPattern = 100)
+    public static void Print(this string message, string headerMessage = null, string pattern = "-", int noOfTimesPattern = 100)
     {
-      PrintHeader(headerMessage, pattern, noOfTimesPattern);
+      PrintHeader($"{headerMessage} --- Type string", pattern, noOfTimesPattern);
       WriteLine($"{message}");
       PrintFooter(pattern, noOfTimesPattern);
     }
 
+    //public static void Print<T>(this T message, string headerMessage = null, string pattern = "-", int noOfTimesPattern = 100)
+    //{
+    //  PrintHeader($"{headerMessage} --- Type T", pattern, noOfTimesPattern);
+    //  WriteLine($"{message}");
+    //  PrintFooter(pattern, noOfTimesPattern);
+    //}
 
-    public static void Print<T>(T message, string headerMessage = null, string pattern = "-", int noOfTimesPattern = 100)
+    public static void Print<T>(this IList<T> sourceList, string headerMessage = null, string pattern = "-", int noOfTimesPattern = 100)
     {
-      PrintHeader(headerMessage, pattern, noOfTimesPattern);
-      WriteLine($"{message.GetType()}");
+      PrintHeader($"{headerMessage} --- Type IList", pattern, noOfTimesPattern);
+      PrintCollection(sourceList);
       PrintFooter(pattern, noOfTimesPattern);
+    }
+
+    public static void Print<T>(this IEnumerable<T> sourceList, string headerMessage = null, string pattern = "-", int noOfTimesPattern = 100)
+    {
+      PrintHeader($"{headerMessage} --- Type IEnu", pattern, noOfTimesPattern);
+      PrintCollection(sourceList);
+      PrintFooter(pattern, noOfTimesPattern);
+    }
+
+    public static void Print<T>(this IQueryable<T> sourceList, string headerMessage = null, string pattern = "-", int noOfTimesPattern = 100)
+    {
+      PrintHeader($"{headerMessage} --- Type IQue", pattern, noOfTimesPattern);
+      PrintCollection(sourceList);
+      PrintFooter(pattern, noOfTimesPattern);
+    }
+
+
+    private static void PrintCollection<T>(IEnumerable<T> sourceList)
+    {
+      int ctr = 1;
+      foreach (var item in sourceList)
+      {
+        WriteLine($"{ctr++} -- {item}");
+      }
     }
   }
 }
